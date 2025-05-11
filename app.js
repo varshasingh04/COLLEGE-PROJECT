@@ -5,6 +5,8 @@ const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require('method-override');
 const ejsMate = require("ejs-mate");
+const wrapAsycn = require("./utils/wrapAsync.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
@@ -43,16 +45,18 @@ app.get("/listings/new",(req,res) => {
 app.get("/listings/:id", async (req,res) => {
     let {id} = req.params;
      const listing = await Listing.findById(id);
-    console.log("Fetched listing:", listing); //debug
+    // console.log("Fetched listing:", listing); //debug
     res.render("listings/show.ejs",{listing});
     
 });       
 
-app.post("/listings", async(req,res) => {
+app.post("/listings", wrapAsycn(async (req,res,next) => {
+  
     const newListing = new Listing(req.body.listing);
     await newListing.save();
-    res.redirect("/listings"); 
-});
+    res.redirect("/listings");
+   
+}));
 
 app.get("/listings/:id/edit", async(req,res) => {
     let {id} = req.params;
@@ -74,11 +78,18 @@ app.delete("/listings/:id", async (req, res) => {
   res.redirect("/listings");
 });
 
+app.all("*",(req, res, next) => {
+    next(new ExpressError(404,"Page Not Found!"));
+})
 
+app.use((err,req,res,next) => {
+    let{statusCode,message} = err;
+   res.status(statusCode).send(message);
+});
 
 
 app.listen(8080,() => {
-    console.log("serveris lising to port 8080");
+    console.log("server is lising to port 8080");
 });
 
 

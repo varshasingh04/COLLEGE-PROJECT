@@ -4,21 +4,22 @@ const Schema = mongoose.Schema;
 const listingSchema = new Schema({
   title: {
     type: String,
-    required: true,
+    // required: true,
   },
   description: String,
   image: {
     filename: {
       type: String,
-      // required: true
+      // 
+      default: "default2.jpg"
     },
     url: {
       type: String,
       // required: true,
-      default: "https://unsplash.com/photos/silhouette-of-mountain-during-sunset-wr8VZnLX00A",
+      default: "/images/default2.jpg",
       set: (v) =>
         v === ""
-          ? "https://unsplash.com/photos/silhouette-of-mountain-during-sunset-wr8VZnLX00A"
+          ? "/images/default2.jpg"
           : v
     }
   },
@@ -28,11 +29,11 @@ const listingSchema = new Schema({
   },
   location: {
     type: String,
-    required: true
+    // required: true
   },
   country: {
     type: String,
-    required: true
+    // required: true
   }
 });
 
