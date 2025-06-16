@@ -8,24 +8,13 @@ const listingSchema = new Schema({
   },
   description: String,
   image: {
-    filename: {
-      type: String,
-      // 
-      default: "default2.jpg"
-    },
-    url: {
-      type: String,
-      // required: true,
-      default: "/images/default2.jpg",
-      set: (v) =>
-        v === ""
-          ? "/images/default2.jpg"
-          : v
-    }
+    url: String,
+    filename: String
   },
   price: {
     type: Number,
-    required: true
+    required: true,
+    min:0
   },
   location: {
     type: String,
@@ -34,7 +23,20 @@ const listingSchema = new Schema({
   country: {
     type: String,
     // required: true
-  }
+  },
+  reviews:[{
+    type: Schema.Types.ObjectId,
+    ref: "Review",
+  },
+],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  category: {
+    type: String,
+    enum : ["mountains", "iconic-city","rooms","castles","pools","camps","farms","arctic"]
+  },
 });
 
 const Listing = mongoose.model("Listing", listingSchema);

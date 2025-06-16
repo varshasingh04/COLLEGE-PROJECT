@@ -1,10 +1,11 @@
-<% layout("/layouts/boilerplate") -%>
+<% layout('layouts/boilerplate') %>
+
 <body>
  <div class="row">
   <div class="col-8 offset-2">
     <br><br>
     <h2>Create a New Listings</h2>
-    <form method="POST" action="/listings" novalidate class="needs-validation">
+    <form method="POST" action="/listings/new" novalidate class="needs-validation" enctype="multipart/form-data">
 
        <div class="mb-3">
          <label for="title" class="form-label">Title</label>
@@ -21,14 +22,27 @@
               Please enter a short description!
            </div>
         </div>
-       
-       
+
         <div class="mb-3 " >
-            <label for="image" class="form-label">Image</label>
-            <input placeholder="Enter image URL/Link" name="listing[image]" type="text" class="form-control" >
+            <label for="image" class="form-label">Upload Image Files</label>
+            <input name="listing[image]" type="file" class="form-control"  required>
         </div>
-        
-        <div class="row ">
+
+         <!-- <div class="row">
+        <select id="categorySelect">
+           <option value="">All Categories</option>
+           <option value="mountains">Mountains</option>
+           <option value="iconic-city">Iconic City</option>
+           <option value="rooms">Rooms</option>
+           <option value="castles">Castles</option>
+           <option value="pools">Pools</option>
+           <option value="camps">Camps</option>
+           <option value="farms">Farms</option>
+           <option value="arctic">Arctic</option>
+       </select>
+       </div>
+         -->
+        <div class="row">
         <div class="mb-3 col-md-4">
             <label for="price" class="form-label">price</label>
             <input placeholder="Enter price" name="listing[price]" class="form-control"  required >

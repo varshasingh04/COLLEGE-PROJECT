@@ -1,32 +1,107 @@
-<% layout("/layouts/boilerplate") -%>
+<% layout('layouts/boilerplate') %>
+
 <body>
-    <h3>All listings</h3>
-    <!-- <form method="GET" action="/listings/new">
-        <button>Create New Listing</button>
-    </form> -->
- <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-    <% for(let listing of allListings) { %> 
 
-     <a href="/listings/<%= listing._id%>" class="listing-link"> 
-    <div class="card col" >
+  <style>
+    #filters{
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .filter{
+      text-align: center;
+      margin-right: 2rem;
+      margin-top: 2rem;
+      opacity: 0.7;
+    }
+    .filter:hover{
+      opacity: 1;
+      cursor: pointer;
+    }
+    .filter p{
+      font-size: 0.8rem;
+    }
 
-       <img
-       src="<%= listing.image.url %>" class="card-img-top" alt="Hotel image" style=" height:20rem ; ">
-       
-       <div class="card-img-overlay"></div>
-       <div class="card-body">
-          <p class="card-text">
-             <b><%= listing.title %> </b><br>
-             &#8377; <%=listing.price %>
-          </p>
-        </div>
-        
+  </style>
+ 
+
+   <div id="filters">
+    <div class="filter" data-filter="trending">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
     </div>
-    </a>   
+
+    <div class="filter" data-filter="rooms">
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p>Rooms</p>
+    </div>
+
+    <div class="filter" data-filter="iconic-city">
+      <div><i class="fa-solid fa-mountain-city"></i></div>
+      <p>Iconic Cities</p>
+    </div>
+    <div class="filter" data-filter="mountain">
+      <div><i class="fa-solid fa-mountain"></i></div>
+      <p>Mountain</p>
+    </div>
+    <div class="filter" data-filter="castles">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>Castles</p>
+    </div>
+    <div class="filter" data-filter="pools">
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      <p>Amazing pools</p>
+    </div>
+    <div class="filter" data-filter="camps">
+      <div><i class="fa-solid fa-tents"></i></div>
+      <p>Camps</p>
+    </div>
+    <div class="filter" data-filter="farms">
+      <div><i class="fa-brands fa-phoenix-framework"></i></div>
+      <p>Farms</p>
+    </div>
+    <div class="filter" data-filter="arctic">
+      <div><i class="fa-solid fa-snowflake"></i></div>
+      <p>Arctic</p>
+    </div>
+    
+   </div> 
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+  <% for(let listing of allListings) { %>
+    <div class="col mb-4">
+      <a href="/listings/<%= listing._id %>" class="listing-link ">
+        <div class="card col listing-card">
+          <img
+            src="<%= listing.image.url%>"
+            class="card-img-top"
+            alt="listing_image"
+            style="height: 20rem"
+          />
+          <div class="card-body">
+            <p class="card-text">
+              <strong><%= listing.title %></strong><br>
+              ₹<%= listing.price.toLocaleString("en-In") %>
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
   <% } %>
 </div>
-   
-   
+
+   <script>
+     const filters = document.querySelectorAll(".filter");
+     filters.forEach(filter => {
+      filter.addEventListener("click", () => {
+        // console.log("clicked");
+        const selectedCategory = filter.getAttribute("data-filter");
+        console.log(selectedCategory);
+      });
+     });
+     
+  </script>
+
+
 
 
 </body>
