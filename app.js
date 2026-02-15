@@ -1,4 +1,4 @@
-if(process.env.NODE_EVN != "production") {
+if (process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 
@@ -85,9 +85,16 @@ app.use((req,res,next) => {
 //     res.send(newUser);
 // });
 
-app.use("/listings",listings);
+// Quick check that server is responding (open this first to test)
+app.get("/ping", (req, res) => {
+    res.type("text/plain").send("PropertyConnect server is running. Use http://127.0.0.1:8080 in your browser.");
+});
+
+app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
-app.use("/",user);
+app.use("/seller", require("./routes/seller.js"));
+app.use("/messages", require("./routes/message.js"));
+app.use("/", user);
 
 
 app.use((err,req,res,next) => {
@@ -97,8 +104,11 @@ app.use((err,req,res,next) => {
 });
 
 
-app.listen(8080,() => {
-    console.log("server is lising to port 8080");
+const PORT = process.env.PORT || 8080;
+const HOST = "0.0.0.0";
+
+app.listen(PORT, HOST, () => {
+    console.log(`Server running at http://localhost:${PORT} and http://127.0.0.1:${PORT}`);
 });
 
 

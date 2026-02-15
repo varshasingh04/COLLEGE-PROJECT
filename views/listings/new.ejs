@@ -1,80 +1,68 @@
 <% layout('layouts/boilerplate') %>
-
-<body>
- <div class="row">
-  <div class="col-8 offset-2">
-    <br><br>
-    <h2>Create a New Listings</h2>
-    <form method="POST" action="/listings/new" novalidate class="needs-validation" enctype="multipart/form-data">
-
-       <div class="mb-3">
-         <label for="title" class="form-label">Title</label>
-          <input placeholder="Enter title" name="listing[title]"   type="text" class="form-control " required >
-           <div class="valid-feedback">
-              Looks good!
-           </div>
-        </div>
-       
+<div class="listing-form-wrap">
+  <h2 class="mb-4">List a Property</h2>
+  <form method="POST" action="/listings/new" enctype="multipart/form-data" class="needs-validation">
+    <div class="row">
+      <div class="col-md-8">
         <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea name="listing[description]" type="text" class="form-control" required ></textarea>
-            <div class="invalid-feedback">
-              Please enter a short description!
-           </div>
+          <label for="title" class="form-label">Title</label>
+          <input id="title" name="listing[title]" type="text" class="form-control" placeholder="e.g. 2 BHK Apartment in Koramangala" required>
         </div>
-
-        <div class="mb-3 " >
-            <label for="image" class="form-label">Upload Image Files</label>
-            <input name="listing[image]" type="file" class="form-control"  required>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" name="listing[description]" class="form-control" rows="4" required></textarea>
         </div>
-
-         <!-- <div class="row">
-        <select id="categorySelect">
-           <option value="">All Categories</option>
-           <option value="mountains">Mountains</option>
-           <option value="iconic-city">Iconic City</option>
-           <option value="rooms">Rooms</option>
-           <option value="castles">Castles</option>
-           <option value="pools">Pools</option>
-           <option value="camps">Camps</option>
-           <option value="farms">Farms</option>
-           <option value="arctic">Arctic</option>
-       </select>
-       </div>
-         -->
+        <div class="mb-3">
+          <label for="image" class="form-label">Property Image</label>
+          <input id="image" name="listing[image]" type="file" class="form-control" accept="image/*" required>
+        </div>
         <div class="row">
-        <div class="mb-3 col-md-4">
-            <label for="price" class="form-label">price</label>
-            <input placeholder="Enter price" name="listing[price]" class="form-control"  required >
-            <div class="invalid-feedback">
-                Price should be vaild.
-            </div>
+          <div class="col-md-4 mb-3">
+            <label for="price" class="form-label">Price (₹)</label>
+            <input id="price" name="listing[price]" type="number" class="form-control" min="0" required>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="area" class="form-label">Area (sq ft)</label>
+            <input id="area" name="listing[area]" type="number" class="form-control" min="0" placeholder="Optional">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="propertyType" class="form-label">Property type</label>
+            <select id="propertyType" name="listing[propertyType]" class="form-select">
+              <option value="apartment">Apartment</option>
+              <option value="house">House</option>
+              <option value="villa">Villa</option>
+              <option value="plot">Plot</option>
+              <option value="commercial">Commercial</option>
+              <option value="pg">PG</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
         </div>
-        
-       
-        <div class="mb-3 col-md-8">
-            <label for="country" class="form-label">Country</label>
-            <input placeholder="Enter country" name="listing[country]" type="text" class="form-control" required>
-            <div class="invalid-feedback">
-                Country name should be vaild.
-            </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label for="bedrooms" class="form-label">Bedrooms</label>
+            <input id="bedrooms" name="listing[bedrooms]" type="number" class="form-control" min="0" placeholder="Optional">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="bathrooms" class="form-label">Bathrooms</label>
+            <input id="bathrooms" name="listing[bathrooms]" type="number" class="form-control" min="0" placeholder="Optional">
+          </div>
         </div>
-        </div>
-        
-        
         <div class="mb-3">
-            <label for="location" class="form-label">Location</label>
-            <input placeholder="Enter location " name="listing[location]" type="text" class="form-control" required>
-             <div class="invalid-feedback">
-                Location should be vaild.
-            </div>
+          <label for="location" class="form-label">Address / Location</label>
+          <input id="location" name="listing[location]" type="text" class="form-control" required>
         </div>
-        
-        
-        <button class="add-btn btn-dark">Add</button>
-        <br><br>
-    </form>
-   </div>
-  </div>
-</body>
-
+        <div class="mb-3">
+          <label for="locality" class="form-label">Locality</label>
+          <input id="locality" name="listing[locality]" type="text" class="form-control" placeholder="e.g. Koramangala, Indiranagar">
+        </div>
+        <div class="mb-3">
+          <label for="country" class="form-label">Country</label>
+          <input id="country" name="listing[country]" type="text" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add listing</button>
+        <a href="/seller/dashboard" class="btn btn-outline-secondary ms-2">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>

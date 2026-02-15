@@ -1,25 +1,31 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-brands fa-themeisle"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
-    >
+    <a class="navbar-brand fw-bold" href="/"><i class="fa-solid fa-house-circle-check text-primary me-1"></i> PropertyConnect</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
-
-      <div class="navbar-nav ms-auto">
-        
-        <%if(!currUser) {%>
-          <a class="nav-link " href="/signup"><b>Sign up</b></a>
-          <a class="nav-link" href="/login"><b>LogIn  </b></a>
-        <%}%> <%if(currUser) {%>
-        <a class="nav-link" href="/listings/new">Become a host</a>
-        <a class="nav-link" href="/logout"><b>Logout</b></a>
-        <%}%>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="/listings">Browse</a></li>
+        <% if (currUser) { %>
+          <% if (currUser.role === 'seller') { %>
+            <li class="nav-item"><a class="nav-link" href="/seller/dashboard">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="/listings/new">Add listing</a></li>
+          <% } else { %>
+            <li class="nav-item"><a class="nav-link" href="/choose-role">List your property</a></li>
+          <% } %>
+          <li class="nav-item"><a class="nav-link" href="/messages">Messages</a></li>
+        <% } %>
+      </ul>
+      <ul class="navbar-nav">
+        <% if (!currUser) { %>
+          <li class="nav-item"><a class="nav-link" href="/choose-role">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="/choose-role">Sign up</a></li>
+        <% } else { %>
+          <li class="nav-item"><span class="nav-link text-muted"><%= currUser.username %> (<%= currUser.role %>)</span></li>
+          <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+        <% } %>
+      </ul>
     </div>
   </div>
 </nav>

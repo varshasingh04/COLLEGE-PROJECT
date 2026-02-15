@@ -1,116 +1,288 @@
+:root {
+  --primary: #0d6efd;
+  --primary-dark: #0a58ca;
+  --success: #198754;
+  --bg-light: #f8f9fa;
+  --border: #dee2e6;
+}
+
 body {
-    font-family: "Plus jakarta sans", sans-serif;
-    min-height: 100vh;
-    flex-direction: column;
-    min-height: 100vh;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
 }
 
 .container {
-    flex: 1;
+  flex: 1;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
 }
 
-/* navbar */
+/* Navbar */
 .navbar {
-    height: 5rem;
-    background-color: white;
-
+  min-height: 3.5rem;
+  background: #fff !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
 }
 
-.fa-themeisle {
-    color:#28a745;
-    font-size: 2rem;
+.navbar-brand {
+  color: #1a1a1a !important;
+  font-size: 1.25rem;
 }
+
 .nav-link {
-    color: #222222 !important;
+  color: #333 !important;
+  font-weight: 500;
 }
 
-/* footer */
-
-.f-info-links a{
-    text-decoration: none;
-    color: #222222;
+.nav-link:hover {
+  color: var(--primary) !important;
 }
 
-.f-info-links a:hover{
-    text-decoration: underline;
+/* Footer */
+.f-info-links a {
+  text-decoration: none;
+  color: #333;
 }
 
-.f-info-links, 
-.f-info-socials ,
+.f-info-links a:hover {
+  text-decoration: underline;
+  color: var(--primary);
+}
+
+.f-info-links,
+.f-info-socials,
 .f-info-brand {
-    width:100%;
-    vertical-align:middle ;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.f-info-socials i{
-  
-    font-size: 1.2rem;
-    margin-right:1.8rem;
+.f-info-socials i {
+  font-size: 1.2rem;
+  margin-right: 1.5rem;
+  color: #555;
 }
 
 .f-info {
-    text-align: center;
-    height: 8rem;
-    background-color: #ebebeb;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: space-evenly;
+  text-align: center;
+  min-height: 6rem;
+  background: var(--bg-light);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
 }
 
-/* cards */
+/* Landing */
+.landing {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 50%, #3d7ab5 100%);
+  color: #fff;
+  border-radius: 1rem;
+  margin: -0.5rem -12px 2rem;
+  padding: 3rem 2rem;
+}
 
+.landing-hero {
+  text-align: center;
+  max-width: 600px;
+}
+
+.landing-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.landing-sub {
+  font-size: 1.1rem;
+  opacity: .95;
+  margin-bottom: 2rem;
+}
+
+.landing-cta .btn-primary {
+  background: #fff;
+  color: #1e3a5f;
+  border: none;
+}
+
+.landing-cta .btn-primary:hover {
+  background: #f0f0f0;
+  color: #1e3a5f;
+}
+
+.landing-cta .btn-outline-light:hover {
+  background: rgba(255,255,255,.2);
+  color: #fff;
+}
+
+/* Choose role */
+.choose-role-wrap {
+  max-width: 700px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.choose-role-wrap h2 {
+  font-weight: 700;
+}
+
+.role-cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.role-card {
+  width: 280px;
+  padding: 2rem;
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.role-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 24px rgba(13, 110, 253, .15);
+}
+
+.role-icon {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.role-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.role-card p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Auth forms */
+.auth-wrap {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.auth-wrap h2 {
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.auth-form .form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, .25);
+}
+
+/* Filters */
+.filters-card {
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.filters-card .form-control,
+.filters-card .form-select {
+  font-size: 0.9rem;
+}
+
+/* Listing cards */
 .listing-card {
-    border:none !important;
-    margin-bottom :2rem;;
+  border: 1px solid var(--border) !important;
+  border-radius: 0.75rem !important;
+  overflow: hidden;
+  transition: box-shadow .2s, transform .2s;
+}
+
+.listing-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+  transform: translateY(-2px);
 }
 
 .card-img-top {
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover !important;
+  border-radius: 0 !important;
+  width: 100% !important;
+  object-fit: cover !important;
 }
 
-.card-body {
-    padding: 0 !important;
-}
-
-.card-text p {
-    font-weight: 400 !important;
+.listing-dash-card .card-body {
+  padding: 1rem !important;
 }
 
 .listing-link {
-    text-decoration: none;
+  text-decoration: none;
+  color: inherit;
 }
 
-/* Card Effect */
-
-.card-img-overlay:hover {
-    opacity: 0.2;
-    background-color: white;
+.listing-link:hover {
+  color: inherit;
 }
+
+/* Message thread */
+.message-thread .message-bubble {
+  max-width: 85%;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.message-thread .message-bubble.me {
+  margin-left: auto;
+  background: var(--primary);
+  color: #fff;
+}
+
+.message-thread .message-bubble.them {
+  background: var(--bg-light);
+  color: #333;
+}
+
+.thread-reply textarea {
+  border-radius: 0.5rem;
+}
+
+/* Contact seller */
+.contact-seller-wrap {
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+/* Alerts */
+.alert {
+  border-radius: 0.5rem;
+}
+
+/* Buttons */
 .add-btn,
 .edit-btn {
-    background-color: #28a745;
-    border: none !important;
-   
+  background-color: var(--success);
+  border: none !important;
 }
 
-/* show page */
-
-.show-img {
-    height: 30vh;
+/* Listing show */
+.listing-show .card {
+  border-radius: 0.75rem;
 }
 
-.btns {
-    display: flex;
-
-}
-
-.show-card {
-    padding-left: 0;
-    padding-right: 0;
+.listing-form-wrap {
+  max-width: 720px;
 }

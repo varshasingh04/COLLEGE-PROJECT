@@ -61,3 +61,28 @@ module.exports.isReviewAuthor = async(req,res,next) => {
     }
     next();
 };
+
+module.exports.isSeller = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        req.session.redirectUrl = req.originalUrl;
+        req.flash("error", "Please log in as a seller.");
+        return res.redirect("/choose-role");
+    }
+    if (req.user.role !== "seller") {
+        req.flash("error", "This page is for sellers only.");
+        return res.redirect("/listings");
+    }
+    next();
+};
+
+module.exports.isBuyer = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        req.flash("error", "You must be logged in as a buyer.");
+        return res.redirect("/choose-role");
+    }
+    if (req.user.role !== "buyer") {
+        req.flash("error", "This page is for buyers only.");
+        return res.redirect("/listings");
+    }
+    next();
+};

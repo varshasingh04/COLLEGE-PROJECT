@@ -1,0 +1,21 @@
+<% layout('layouts/boilerplate') %>
+<div class="choose-role-wrap">
+  <h2 class="mb-4">Who are you?</h2>
+  <div class="role-cards">
+    <div class="role-card" data-role="buyer">
+      <div class="role-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+      <h3>I'm a Buyer</h3>
+      <p>Search properties, filter by price & locality, message sellers.</p>
+      <a href="/login?role=buyer" class="btn btn-outline-primary mt-2">Login</a>
+      <a href="/signup?role=buyer" class="btn btn-link mt-1">New? Sign up</a>
+    </div>
+    <div class="role-card" data-role="seller">
+      <div class="role-icon"><i class="fa-solid fa-store"></i></div>
+      <h3>I'm a Seller</h3>
+      <p>List your properties, manage listings, chat with buyers.</p>
+      <a href="/login?role=seller" class="btn btn-outline-success mt-2">Login</a>
+      <a href="/signup?role=seller" class="btn btn-link mt-1">New? Sign up</a>
+    </div>
+  </div>
+  <p class="mt-3"><a href="/listings">Continue as guest (browse only)</a></p>
+</div>

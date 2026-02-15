@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const wrapAsycn = require("../utils/wrapAsync.js");
 const Listing = require("../models/listing.js");
-const {isLoggedIn, isOwner, validateListing} = require("../middlewaves.js");
+const { isLoggedIn, isOwner, isSeller, validateListing } = require("../middlewaves.js");
 const listingController = require("../controllers/listing.js");
 const multer  = require('multer')
 const{storage} = require("../cloudConfig.js");
@@ -13,13 +13,13 @@ router.get("/",wrapAsycn(listingController.index));
 
 router
   .route("/new")
-  .get(isLoggedIn, listingController.newForm)
+  .get(isSeller, listingController.newForm)
   .post(
-    isLoggedIn, 
+    isSeller,
     upload.single('listing[image]'),
-    validateListing, 
-    wrapAsycn(listingController.  createListing)
-   );
+    validateListing,
+    wrapAsycn(listingController.createListing)
+  );
   
 
 router
@@ -40,7 +40,10 @@ router
 
 
 //edit
-router.get("/:id/edit",isLoggedIn, isOwner,wrapAsycn (listingController.editListing));
+router.get("/:id/edit", isLoggedIn, isOwner, wrapAsycn(listingController.editListing));
+
+router.get("/:id/contact", isLoggedIn, wrapAsycn(listingController.contactForm));
+router.post("/:id/contact", isLoggedIn, wrapAsycn(listingController.contactSeller));
 
 //Error Handling Middleware
 router.use((err,req,res,next) => {

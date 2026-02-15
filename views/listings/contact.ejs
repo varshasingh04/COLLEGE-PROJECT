@@ -1,0 +1,13 @@
+<% layout('layouts/boilerplate') %>
+<div class="contact-seller-wrap">
+  <h3>Contact seller: <%= listing.owner.username %></h3>
+  <p class="text-muted">About: <strong><%= listing.title %></strong> — ₹<%= listing.price.toLocaleString('en-IN') %></p>
+  <form method="POST" action="/listings/<%= listing._id %>/contact" class="mt-3">
+    <div class="mb-3">
+      <label for="body" class="form-label">Your message</label>
+      <textarea id="body" name="body" class="form-control" rows="4" placeholder="Hi, I'm interested in this property..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Send message</button>
+    <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary ms-2">Cancel</a>
+  </form>
+</div>

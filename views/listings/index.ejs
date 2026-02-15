@@ -1,108 +1,85 @@
 <% layout('layouts/boilerplate') %>
+<div class="listings-page">
+  <h2 class="mb-4">Find a Property</h2>
 
-<body>
-
-  <style>
-    #filters{
-      display: flex;
-      flex-wrap: wrap;
-    }
-    .filter{
-      text-align: center;
-      margin-right: 2rem;
-      margin-top: 2rem;
-      opacity: 0.7;
-    }
-    .filter:hover{
-      opacity: 1;
-      cursor: pointer;
-    }
-    .filter p{
-      font-size: 0.8rem;
-    }
-
-  </style>
- 
-
-   <div id="filters">
-    <div class="filter" data-filter="trending">
-      <div><i class="fa-solid fa-fire"></i></div>
-      <p>Trending</p>
-    </div>
-
-    <div class="filter" data-filter="rooms">
-      <div><i class="fa-solid fa-bed"></i></div>
-      <p>Rooms</p>
-    </div>
-
-    <div class="filter" data-filter="iconic-city">
-      <div><i class="fa-solid fa-mountain-city"></i></div>
-      <p>Iconic Cities</p>
-    </div>
-    <div class="filter" data-filter="mountain">
-      <div><i class="fa-solid fa-mountain"></i></div>
-      <p>Mountain</p>
-    </div>
-    <div class="filter" data-filter="castles">
-      <div><i class="fa-brands fa-fort-awesome"></i></div>
-      <p>Castles</p>
-    </div>
-    <div class="filter" data-filter="pools">
-      <div><i class="fa-solid fa-person-swimming"></i></div>
-      <p>Amazing pools</p>
-    </div>
-    <div class="filter" data-filter="camps">
-      <div><i class="fa-solid fa-tents"></i></div>
-      <p>Camps</p>
-    </div>
-    <div class="filter" data-filter="farms">
-      <div><i class="fa-brands fa-phoenix-framework"></i></div>
-      <p>Farms</p>
-    </div>
-    <div class="filter" data-filter="arctic">
-      <div><i class="fa-solid fa-snowflake"></i></div>
-      <p>Arctic</p>
-    </div>
-    
-   </div> 
-
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-  <% for(let listing of allListings) { %>
-    <div class="col mb-4">
-      <a href="/listings/<%= listing._id %>" class="listing-link ">
-        <div class="card col listing-card">
-          <img
-            src="<%= listing.image.url%>"
-            class="card-img-top"
-            alt="listing_image"
-            style="height: 20rem"
-          />
-          <div class="card-body">
-            <p class="card-text">
-              <strong><%= listing.title %></strong><br>
-              ₹<%= listing.price.toLocaleString("en-In") %>
-            </p>
-          </div>
+  <div class="filters-card card mb-4">
+    <div class="card-body">
+      <form method="GET" action="/listings" class="row g-3 align-items-end" id="filter-form">
+        <div class="col-md-2">
+          <label class="form-label">Min price (₹)</label>
+          <input type="number" name="priceMin" class="form-control" placeholder="0" value="<%= query.priceMin || '' %>" min="0">
         </div>
-      </a>
+        <div class="col-md-2">
+          <label class="form-label">Max price (₹)</label>
+          <input type="number" name="priceMax" class="form-control" placeholder="Any" value="<%= query.priceMax || '' %>" min="0">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Locality</label>
+          <input type="text" name="locality" class="form-control" placeholder="e.g. Koramangala" value="<%= query.locality || '' %>">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Min area (sq ft)</label>
+          <input type="number" name="areaMin" class="form-control" placeholder="0" value="<%= query.areaMin || '' %>" min="0">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Max area (sq ft)</label>
+          <input type="number" name="areaMax" class="form-control" placeholder="Any" value="<%= query.areaMax || '' %>" min="0">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Property type</label>
+          <select name="propertyType" class="form-select">
+            <option value="all" <%= (query.propertyType || 'all') === 'all' ? 'selected' : '' %>>All</option>
+            <option value="apartment" <%= query.propertyType === 'apartment' ? 'selected' : '' %>>Apartment</option>
+            <option value="house" <%= query.propertyType === 'house' ? 'selected' : '' %>>House</option>
+            <option value="villa" <%= query.propertyType === 'villa' ? 'selected' : '' %>>Villa</option>
+            <option value="plot" <%= query.propertyType === 'plot' ? 'selected' : '' %>>Plot</option>
+            <option value="commercial" <%= query.propertyType === 'commercial' ? 'selected' : '' %>>Commercial</option>
+            <option value="pg" <%= query.propertyType === 'pg' ? 'selected' : '' %>>PG</option>
+            <option value="other" <%= query.propertyType === 'other' ? 'selected' : '' %>>Other</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Bedrooms (min)</label>
+          <select name="bedrooms" class="form-select">
+            <option value="any" <%= (query.bedrooms || 'any') === 'any' ? 'selected' : '' %>>Any</option>
+            <option value="1" <%= query.bedrooms === '1' ? 'selected' : '' %>>1+</option>
+            <option value="2" <%= query.bedrooms === '2' ? 'selected' : '' %>>2+</option>
+            <option value="3" <%= query.bedrooms === '3' ? 'selected' : '' %>>3+</option>
+            <option value="4" <%= query.bedrooms === '4' ? 'selected' : '' %>>4+</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-filter me-1"></i> Apply</button>
+        </div>
+      </form>
     </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <% (allListings || []).forEach(function(listing) { %>
+      <div class="col">
+        <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none text-dark">
+          <div class="card h-100 listing-card">
+            <% if (listing.image && listing.image.url) { %>
+              <img src="<%= listing.image.url %>" class="card-img-top" alt="" style="height: 200px; object-fit: cover;">
+            <% } else { %>
+              <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;"><i class="fa-solid fa-image fa-3x text-muted"></i></div>
+            <% } %>
+            <div class="card-body">
+              <h5 class="card-title"><%= listing.title %></h5>
+              <p class="card-text text-primary fw-bold mb-1">₹<%= listing.price.toLocaleString('en-IN') %></p>
+              <p class="card-text small text-muted mb-0">
+                <%= listing.location %><% if (listing.locality) { %>, <%= listing.locality %><% } %>
+                <% if (listing.area) { %> · <%= listing.area %> sq ft<% } %>
+                <% if (listing.bedrooms) { %> · <%= listing.bedrooms %> BHK<% } %>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% }); %>
+  </div>
+  <% if (!allListings || allListings.length === 0) { %>
+    <p class="text-muted mt-4">No properties match your filters. Try adjusting the filters above.</p>
   <% } %>
 </div>
-
-   <script>
-     const filters = document.querySelectorAll(".filter");
-     filters.forEach(filter => {
-      filter.addEventListener("click", () => {
-        // console.log("clicked");
-        const selectedCategory = filter.getAttribute("data-filter");
-        console.log(selectedCategory);
-      });
-     });
-     
-  </script>
-
-
-
-
-</body>
-

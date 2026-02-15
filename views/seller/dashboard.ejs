@@ -1,0 +1,55 @@
+<% layout('layouts/boilerplate') %>
+<div class="seller-dashboard">
+  <h2 class="mb-4">Seller Dashboard</h2>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <a href="/listings/new" class="btn btn-primary"><i class="fa-solid fa-plus me-1"></i> Add Property</a>
+    <a href="/messages" class="btn btn-outline-primary"><i class="fa-solid fa-envelope me-1"></i> Messages</a>
+  </div>
+
+  <h4 class="mt-4 mb-3">Your Listings</h4>
+  <% if (myListings.length === 0) { %>
+    <p class="text-muted">No listings yet. <a href="/listings/new">Add your first property</a>.</p>
+  <% } else { %>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% myListings.forEach(function(listing) { %>
+        <div class="col">
+          <div class="card h-100 listing-dash-card">
+            <% if (listing.image && listing.image.url) { %>
+              <img src="<%= listing.image.url %>" class="card-img-top" alt="" style="height: 180px; object-fit: cover;">
+            <% } else { %>
+              <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 180px;"><i class="fa-solid fa-image fa-3x text-muted"></i></div>
+            <% } %>
+            <div class="card-body">
+              <h5 class="card-title"><%= listing.title %></h5>
+              <p class="card-text text-muted mb-1">₹<%= listing.price.toLocaleString('en-IN') %> <% if (listing.area) { %> · <%= listing.area %> sq ft<% } %></p>
+              <p class="card-text small"><%= listing.location %><% if (listing.locality) { %>, <%= listing.locality %><% } %></p>
+              <div class="d-flex gap-2 mt-2">
+                <a href="/listings/<%= listing._id %>" class="btn btn-sm btn-outline-primary">View</a>
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } %>
+
+  <% if (messagesToMe.length > 0) { %>
+    <h4 class="mt-5 mb-3">Recent buyer messages</h4>
+    <ul class="list-group">
+      <% messagesToMe.slice(0, 5).forEach(function(m) { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong><%= m.from.username %></strong> about <a href="/listings/<%= m.listing._id %>"><%= m.listing.title %></a>
+            <br><span class="text-muted small"><%= m.body.substring(0, 60) %><%= m.body.length > 60 ? '...' : '' %></span>
+          </div>
+          <a href="/messages/thread/<%= m.listing._id %>/<%= m.from._id %>" class="btn btn-sm btn-primary">Reply</a>
+        </li>
+      <% }); %>
+    </ul>
+    <a href="/messages" class="btn btn-link mt-2">View all messages</a>
+  <% } %>
+</div>

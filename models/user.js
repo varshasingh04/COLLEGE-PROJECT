@@ -1,4 +1,3 @@
-// const { required } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require("passport-local-mongoose");
@@ -9,9 +8,16 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    password: String
+    password: String,
+    role: {
+        type: String,
+        enum: ["buyer", "seller"],
+        default: "buyer"
+    },
+    phone: { type: String, default: "" },
+    fullName: { type: String, default: "" }
 });
 
 userSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("User",userSchema);
+module.exports = mongoose.model("User", userSchema);

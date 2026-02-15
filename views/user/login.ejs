@@ -1,23 +1,20 @@
 <% layout('layouts/boilerplate') %>
-
-<div  class="row mb-3">
-    <h1  class="col-8  offset-3">Login</h1>
-    <div class="col-8  offset-3">
-       <form method="POST" action="/login" novalidate class="needs-validation">
-        <div class="mb-3">
-         <label for="username" class="form-label">Username</label>
-          <input id="username" name="username"   type="text" class="form-control " required >
-           
-        </div>
-        
-        <div class="mb-3">
-         <label for="password" class="form-label">Password</label>
-          <input id="password" name="password"   type="password" class="form-control " required >
-           
-        </div>
-
-        <button class="btn btn-success"> Login</button>
-
-       </form>
+<div class="auth-wrap">
+  <h2><%= role === 'seller' ? 'Seller' : 'Buyer' %> Login</h2>
+  <form method="POST" action="/login" class="auth-form">
+    <input type="hidden" name="role" value="<%= role %>">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input id="username" name="username" type="text" class="form-control" required>
     </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input id="password" name="password" type="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+  </form>
+  <p class="mt-3">
+    New user? <a href="/signup?role=<%= role %>">Sign up as <%= role %></a><br>
+    <a href="/choose-role">Change role (Buyer / Seller)</a>
+  </p>
 </div>

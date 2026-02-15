@@ -1,0 +1,25 @@
+<% layout('layouts/boilerplate') %>
+<div class="message-thread">
+  <nav class="mb-3"><a href="/messages">&larr; Back to inbox</a></nav>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5><%= listing.title %></h5>
+      <p class="text-muted mb-0">₹<%= listing.price.toLocaleString('en-IN') %> · Conversation with <strong><%= other.username %></strong></p>
+      <a href="/listings/<%= listing._id %>" class="btn btn-sm btn-outline-primary mt-2">View listing</a>
+    </div>
+  </div>
+  <div class="thread-messages mb-4">
+    <% messages.forEach(function(m) { %>
+      <div class="message-bubble <%= m.from._id.toString() === currUser._id.toString() ? 'me' : 'them' %>">
+        <strong><%= m.from.username %></strong>: <%= m.body %>
+        <small class="d-block text-muted"><%= new Date(m.createdAt).toLocaleString() %></small>
+      </div>
+    <% }); %>
+  </div>
+  <form method="POST" action="/messages/thread/<%= listing._id %>/<%= other._id %>" class="thread-reply">
+    <div class="mb-2">
+      <textarea name="body" class="form-control" rows="3" placeholder="Type your message..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+</div>

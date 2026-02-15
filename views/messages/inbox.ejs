@@ -1,0 +1,28 @@
+<% layout('layouts/boilerplate') %>
+<div class="messages-inbox">
+  <h2 class="mb-4">Messages</h2>
+  <% if (threadList.length === 0) { %>
+    <p class="text-muted">No conversations yet. When you contact a seller or a buyer messages you, they will appear here.</p>
+  <% } else { %>
+    <div class="list-group">
+      <% threadList.forEach(function(t) { %>
+        <a href="/messages/thread/<%= t.listing._id %>/<%= t.other._id %>" class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <% if (t.listing.image && t.listing.image.url) { %>
+                <img src="<%= t.listing.image.url %>" alt="" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+              <% } else { %>
+                <div class="rounded me-3 bg-light d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;"><i class="fa-solid fa-home text-muted"></i></div>
+              <% } %>
+              <div>
+                <h6 class="mb-0"><%= t.listing.title %></h6>
+                <small class="text-muted">With <%= t.other.username %></small>
+              </div>
+            </div>
+            <small class="text-muted"><%= new Date(t.lastAt).toLocaleDateString() %></small>
+          </div>
+        </a>
+      <% }); %>
+    </div>
+  <% } %>
+</div>
